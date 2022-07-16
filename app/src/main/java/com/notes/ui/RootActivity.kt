@@ -1,8 +1,11 @@
 package com.notes.ui
 
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.notes.R
 import com.notes.databinding.ActivityRootBinding
 import com.notes.ui._base.FragmentNavigator
 import com.notes.ui.list.NoteListFragment
@@ -16,19 +19,30 @@ class RootActivity : AppCompatActivity(), FragmentNavigator {
         val viewBinding = ActivityRootBinding.inflate(layoutInflater)
         this.viewBinding = viewBinding
         setContentView(viewBinding.root)
-        supportFragmentManager
-            .beginTransaction()
-            .add(
-                viewBinding.container.id,
-                NoteListFragment()
-            )
-            .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(
+                    viewBinding.container.id,
+                    NoteListFragment()
+                )
+                .commit()
+        } else {
+            supportFragmentManager
+                .findFragmentById(R.id.note_list_fragment)
+        }
     }
 
     override fun navigateTo(
-        fragment: Fragment
+        fragment: Fragment,
+        id: Long?
     ) {
         val viewBinding = this.viewBinding ?: return
+        if (id != null) {
+            val bundle = Bundle()
+            bundle.putLong(noteId, id)
+            fragment.arguments = bundle
+        }
         supportFragmentManager
             .beginTransaction()
             .replace(
@@ -44,6 +58,10 @@ class RootActivity : AppCompatActivity(), FragmentNavigator {
         } else {
             super.onBackPressed()
         }
+    }
+
+    companion object {
+        const val noteId = "NOTE_ID"
     }
 
 }

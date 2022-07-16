@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="fillTitleText">Please fill title text</string>
 </resources>

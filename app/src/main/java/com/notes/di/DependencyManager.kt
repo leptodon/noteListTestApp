@@ -13,7 +13,8 @@ class DependencyManager private constructor(
             instance = DependencyManager(application)
         }
 
-        fun noteListViewModel() = instance.rootComponent.getNoteListViewModel()
+        fun noteListViewModelFactory() = instance.rootComponent.getNoteListViewModelFactory()
+        fun noteDetailViewModelFactory() = instance.rootComponent.getNoteDetailViewModelFactory()
 
     }
 

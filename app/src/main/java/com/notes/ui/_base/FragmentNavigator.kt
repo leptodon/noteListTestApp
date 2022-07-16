@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 
 interface FragmentNavigator {
     fun navigateTo(
-        fragment: Fragment
+        fragment: Fragment,
+        id: Long?
     )
 }
